@@ -1,0 +1,39 @@
+public class FCFS{
+    public static void main(){
+        Integer[] id = new Integer[5];
+        Integer[] at = new Integer[5];
+        Integer[] bt = new Integer[5]; 
+        Integer[] pr = new Integer[5]
+
+        Integer[] ct = new Integer[5];
+
+        for(int i = id.length; i>0; i--){
+            for(int j = 0; j<i; j++){
+                if (pr[j] > pr[j+1]){
+
+                    int temp = id[j];
+                    id[j] = id[j+1];
+                    id[j+1] = temp;
+
+                    int temp1 = at[j];
+                    at[j] = at[j+1];
+                    at[j+1] = temp1;
+
+                    int temp = bt[j];
+                    bt[j] = bt[j+1];
+                    bt[j+1] = temp;
+                }
+            }
+        }
+
+        ct[0] = at[0] + bt[0];
+
+        for(int i = 1; i<id.length; i++){
+            if(at[i]>ct[i-1]) {
+                ct[i] = at[i] + bt[i];
+            }else{
+                ct[i] = ct[i-1] + bt[i];
+            }
+        }
+    }
+}

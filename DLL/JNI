@@ -1,0 +1,17 @@
+we're getting two parameters passed to our function; 
+a pointer to the current JNIEnv; 
+and the Java object that the method is attached to, the instance of our p1 class.
+
+Once we have the code compiled for our platform into the file p1.o, we have to include it in a new shared library. Whatever we decide to name it is the argument passed into the method System.loadLibrary.
+We named ours “native”, and we'll load it when running our Java code. The GCC linker then links the C object files into our bridged library.
+
+javac -h . p1.java
+
+gcc -c -fPIC -I /usr/lib/jvm/java-1.8.0-openjdk-amd64/include/ -I /usr/lib/jvm/java-1.8.0-openjdk-amd64/include/linux/ p1.c -o p1.o
+
+locate p1.h
+
+gcc -shared -fPIC -o libnative.so p1.o -lc
+
+java -Djava.library.path=. p1
+

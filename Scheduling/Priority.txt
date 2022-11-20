@@ -1,0 +1,66 @@
+import java.util.*;
+class Priority {
+    public static void main (String[] args){
+
+        Integer [] id = {1,2,3,4,5,6,7};
+        Integer [] At = {0,1,2,3,4,5,15};
+        Integer [] Bt = {1,7,3,6,5,15,8};
+        Integer [] P = {2,6,3,5,4,10,9};
+
+        ArrayList<String> procedure = new ArrayList<String>();
+        ArrayList<String> ready = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<String>();
+
+        for(int i = 0; i<id.length ; i++){
+            procedure.add(id[i] + " " + At[i] + " " + Bt[i] + " " + P[i]);
+        }
+    
+        int time = 1;
+        while(time < 50){
+            for(int i = 0; i < procedure.size(); i++){
+                String s = procedure.get(i);
+                String s1 = s.split(" ")[1];
+                int s2 = Integer.parseInt(s1);
+                if (s2 < time){
+                    ready.add(s);
+                    procedure.remove(i);
+                }
+            }
+            
+            int min = 100;
+            int exec_id = 0;
+
+            for(int i=0; i < ready.size(); i++){
+                String t = ready.get(i);
+                String t1 = t.split(" ")[3];
+                int t3 = Integer.parseInt(t1);
+                if( t3 > min){
+                    min = t3;
+                    exec_id = i;
+                }
+            }
+
+            if((ready.isEmpty()) == false){
+                String u = ready.get(exec_id);
+                String u0 = u.split(" ")[0];
+                String u1 = u.split(" ")[1];
+                String u2 = u.split(" ")[2];
+                String u4 = u.split(" ")[3];
+                int v = Integer.parseInt(u2);
+
+                int v0 = v - 1;
+
+                if (v0 == 0){
+                    result.add(u0 + " " + u1 + " " + time);
+                    ready.remove(exec_id);
+                }else{
+                    ready.remove(exec_id);
+                    ready.add(u0 + " " + u1 + " " + v0 + " " + u4);
+                }
+            }
+
+            time++;
+        }
+        System.out.println(result);
+    }
+} 
